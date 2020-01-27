@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Тулин](https://up.htmlacademy.ru/javascript/19/user/1074331).
-* Наставник: [Владимир Чебаков] (https://up.htmlacademy.ru/javascript/19/user/1100789).
+* Наставник: [Владимир Чебаков](https://up.htmlacademy.ru/javascript/19/user/1100789).
 
 ---
 

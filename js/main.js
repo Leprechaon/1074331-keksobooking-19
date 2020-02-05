@@ -1,86 +1,86 @@
 'use strict';
 var NUMBERS_OF_OFFERS = 8;
-var AVATAR_ARRAY = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
-var TITLE_ARRAY = ['Надежный приют', 'Несущие опоры как арт-объект', 'Уголок киномана', 'Симфония стиля', 'Семейные традиции', 'Симбиоз авангарда и классики', 'Гармония, построенная на принципах свободы', 'Захватывающее ощущение раскрепощенности и легкости', 'Звучание города', 'Девичье гнездышко', 'Световая симфония', 'Карнавал текстур и красок', 'Продуманная рациональность', 'Приют всех муз', 'Яркое отражение индивидуальности', 'Романтика мегаполиса', 'Дыхание природы', 'Изящество классики, уют прованса'];
-var TYPE_ARRAY = ['palace', 'flat', 'house', 'bungalo'];
-var CHECKIN_ARRAY = ['12:00', '13:00', '14:00'];
-var FEATURES_ARRAY = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var PHOTOS_ARRAY = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var map = document.querySelector('.map');
-var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-var similarListElement = document.querySelector('.map__pins');
-var X_MAX = map.offsetWidth;
+var AVATARS = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png', 'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png', 'img/avatars/user08.png'];
+var TITLES = ['Надежный приют', 'Несущие опоры как арт-объект', 'Уголок киномана', 'Симфония стиля', 'Семейные традиции', 'Симбиоз авангарда и классики', 'Гармония, построенная на принципах свободы', 'Захватывающее ощущение раскрепощенности и легкости', 'Звучание города', 'Девичье гнездышко', 'Световая симфония', 'Карнавал текстур и красок', 'Продуманная рациональность', 'Приют всех муз', 'Яркое отражение индивидуальности', 'Романтика мегаполиса', 'Дыхание природы', 'Изящество классики, уют прованса'];
+var TYPES = ['palace', 'flat', 'house', 'bungalo'];
+var CHECKINS = ['12:00', '13:00', '14:00'];
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var ROOMS = 6;
+var PIN_OFFSET_X = 25;
+var PIN_OFFSET_Y = 70;
 var Y_MIN = 130;
 var Y_MAX = 630;
+var map = document.querySelector('.map');
+var xMax = map.offsetWidth;
 
+var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+var similarListElement = document.querySelector('.map__pins');
+var titleShuffle = doShuffles(TITLES);
 map.classList.remove('map--faded');
 
-var randomItem = function (arr) {
-  var number = arr.length;
-  return Math.floor(Math.random() * (number));
-};
+function doShuffles(arr) {
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+  return arr;
+}
 
-var randomNumber = function (number) {
-  return Math.ceil(Math.random() * (number));
-};
-
-var randomMinMax = function (min, max) {
+var chooseRandomMinMax = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-var mixArray = function (arr) {
-  var countOffers = randomNumber(arr.length);
-  var array = [];
-  for (var i = 0; i < countOffers; i++) {
-    var item = randomItem(arr);
-    array[i] = arr[item];
-    arr.splice(item, 1);
+var doSelections = function (arr) {
+  var mix = [];
+  var countFeatures = chooseRandomMinMax(1, arr.length);
+  doShuffles(arr);
+  for (var i = 0; i < countFeatures; i++) {
+    mix[i] = arr[i];
   }
-  return array;
+  return mix;
 };
 
-var offersArrays = function (offersCount) {
+var doOffers = function (offersCount) {
   var array = [];
   for (var i = 0; i < offersCount; i++) {
-    var avatarNumber = randomItem(AVATAR_ARRAY);
-    var titleNumber = randomItem(TITLE_ARRAY);
-    var numberOfRooms = randomNumber(6);
-    var X = randomMinMax(0, X_MAX);
-    var Y = randomMinMax(Y_MIN, Y_MAX);
+    var numberOfRooms = chooseRandomMinMax(1, ROOMS);
+    var x = chooseRandomMinMax(0, xMax);
+    var y = chooseRandomMinMax(Y_MIN, Y_MAX);
     array[i] = {
       author: {
-        avatar: AVATAR_ARRAY[avatarNumber]
+        avatar: AVATARS[i]
       },
       offer: {
-        title: TITLE_ARRAY[titleNumber],
-        address: X + ', ' + Y,
-        price: randomNumber(100000),
-        type: TYPE_ARRAY[randomItem(TYPE_ARRAY)],
+        title: titleShuffle[i],
+        address: x + ', ' + y,
+        price: chooseRandomMinMax(1, 100000),
+        type: TYPES[chooseRandomMinMax(0, TYPES.length - 1)],
         rooms: numberOfRooms,
         guests: numberOfRooms * 2,
-        checkin: CHECKIN_ARRAY[randomItem(CHECKIN_ARRAY)],
-        checkout: CHECKIN_ARRAY[randomItem(CHECKIN_ARRAY)],
-        features: mixArray(FEATURES_ARRAY),
+        checkin: CHECKINS[chooseRandomMinMax(0, CHECKINS.length - 1)],
+        checkout: CHECKINS[chooseRandomMinMax(0, CHECKINS.length - 1)],
+        features: doSelections(FEATURES),
         description: 'Хорошая квартира, надо брать',
-        photos: PHOTOS_ARRAY
+        photos: PHOTOS
       },
       location: {
-        x: X,
-        y: Y
+        x: x,
+        y: y
       }
     };
-    AVATAR_ARRAY.splice(avatarNumber, 1);
-    TYPE_ARRAY.splice(titleNumber, 1);
   }
   return array;
 };
 
-var offers = offersArrays(NUMBERS_OF_OFFERS);
+var offers = doOffers(NUMBERS_OF_OFFERS);
 
 var renderPins = function (offer) {
   var offerElement = similarPinTemplate.cloneNode(true);
-  offerElement.style.left = (offer.location.x - 25) + 'px';
-  offerElement.style.top = (offer.location.y - 70) + 'px';
+  offerElement.style.left = (offer.location.x - PIN_OFFSET_X) + 'px';
+  offerElement.style.top = (offer.location.y - PIN_OFFSET_Y) + 'px';
   offerElement.querySelector('img').src = offer.author.avatar;
   offerElement.querySelector('img').alt = offer.offer.title;
   return offerElement;

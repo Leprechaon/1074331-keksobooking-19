@@ -13,7 +13,6 @@ var Y_MIN = 130;
 var Y_MAX = 630;
 var map = document.querySelector('.map');
 var xMax = map.offsetWidth;
-
 var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 var similarListElement = document.querySelector('.map__pins');
 var titleShuffle = doShuffles(TITLES);

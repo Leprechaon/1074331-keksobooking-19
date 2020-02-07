@@ -19,8 +19,11 @@ var similarListPins = document.querySelector('.map__pins');
 var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 var titleShuffle = doShuffles(TITLES);
 var mapFiltersContainer = map.querySelector('.map__filters-container');
+
+// Временно удаляет класс
 map.classList.remove('map--faded');
 
+// Перемешивает массив
 function doShuffles(arr) {
   for (var i = arr.length - 1; i > 0; i--) {
     var j = Math.floor(Math.random() * (i + 1));
@@ -31,10 +34,12 @@ function doShuffles(arr) {
   return arr;
 }
 
+// Выбирает любое число в заданном интервале
 var chooseRandomMinMax = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+// Выбирает произвольные элементы из коллекции и их количество
 var doSelections = function (arr) {
   var mix = [];
   var countFeatures = chooseRandomMinMax(0, arr.length);
@@ -45,6 +50,7 @@ var doSelections = function (arr) {
   return mix;
 };
 
+// Собирает коллекцию предложений
 var doOffers = function (offersCount) {
   var array = [];
   for (var i = 0; i < offersCount; i++) {
@@ -79,6 +85,7 @@ var doOffers = function (offersCount) {
 
 var offers = doOffers(NUMBERS_OF_OFFERS);
 
+// Отрисовывает пины
 var renderPins = function (offer) {
   var offerPin = similarPinTemplate.cloneNode(true);
   offerPin.style.left = (offer.location.x - PIN_OFFSET_X) + 'px';
@@ -88,6 +95,7 @@ var renderPins = function (offer) {
   return offerPin;
 };
 
+// Переводит слова на русский
 var translateType = function (word) {
   var translatedWord;
   for (var i = 0; i < TYPES.length; i++) {
@@ -99,6 +107,7 @@ var translateType = function (word) {
   return translatedWord;
 };
 
+// Определяет окончание у слов
 var makeEndOfWord = function (numberOfRooms) {
   var endOfWord = 'ы';
   if (numberOfRooms === 1) {
@@ -110,6 +119,7 @@ var makeEndOfWord = function (numberOfRooms) {
   return endOfWord;
 };
 
+// Отрисовывает карточки с информацией
 var renderCards = function (offer) {
   var offerCard = similarCardTemplate.cloneNode(true);
   offerCard.querySelector('.popup__avatar').src = offer.author.avatar;
@@ -141,6 +151,7 @@ var renderCards = function (offer) {
   return offerCard;
 };
 
+// отрисовывает фрагмент с элементами
 var renderFragment = function (array, templateFunction) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < array.length; i++) {
@@ -151,6 +162,9 @@ var renderFragment = function (array, templateFunction) {
 
 var pinFragment = renderFragment(offers, renderPins);
 var cardFragment = renderCards(offers[chooseRandomMinMax(0, offers.length - 1)]);
+//  Вставка пинов на карте
 similarListPins.appendChild(pinFragment);
+//  Вставка карточки на карте
 map.appendChild(cardFragment);
+//  Смещение фильтра в конец
 map.appendChild(mapFiltersContainer);

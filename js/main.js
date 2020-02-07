@@ -128,11 +128,14 @@ var renderCards = function (offer) {
   }
   offerCard.querySelector('.popup__description').textContent = offer.offer.description;
   var popupPhotos = offerCard.querySelector('.popup__photos');
-  var photo = offerCard.querySelector('.popup__photo').cloneNode(true);
   popupPhotos.textContent = '';
   for (var j = 0; j < offer.offer.photos.length; j++) {
-    photo.cloneNode(true);
+    var photo = document.createElement('img');
+    photo.classList = 'popup__photo';
     photo.src = offer.offer.photos[j];
+    photo.width = 45;
+    photo.height = 40;
+    photo.alt = 'Фотография жилья';
     popupPhotos.appendChild(photo);
   }
   return offerCard;

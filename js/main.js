@@ -314,8 +314,3 @@ timeIn.addEventListener('change', function () {
 timeOut.addEventListener('change', function () {
   syncCheckInOut(timeOut.value);
 });
-
-//  Вставка карточки на карте
-// map.appendChild(cardFragment);
-//  Смещение фильтра в конец
-map.appendChild(mapFiltersContainer);

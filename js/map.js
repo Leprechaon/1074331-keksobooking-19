@@ -13,6 +13,7 @@
 
   var offers = window.data.doOffers(NUMBERS_OF_OFFERS);
 
+  // убирает карточку
   var removePinCard = function (oldHandler) {
     var oldPinCard = map.querySelector('.map__card');
     if (oldPinCard) {
@@ -21,13 +22,14 @@
     }
   };
 
+  // добавляет карточку
   var onPinPress = function (pin) {
     removePinCard();
     similarListPins.after(window.card.render(pin));
     var pinCard = map.querySelector('.popup__close');
     pinCard.addEventListener('click', removePinCard);
     var oldHandler = document.addEventListener('keydown', function (evt) {
-      window.util.isEscapeEvent(evt, removePinCard, oldHandler);
+      window.util.isEvent.esc(evt, removePinCard, oldHandler);
     });
   };
 
@@ -37,6 +39,7 @@
     });
   };
 
+  // отбрасывает px
   var delPX = function (string) {
     var word = string.substr(0, string.length - 2);
     return Number.parseInt(word, 10);
@@ -55,24 +58,25 @@
 
   var pinFragment = renderFragment(offers, window.pins.renderPins);
 
+  // переходит в активный режим
   var onMainPinPress = function () {
     map.classList.remove('map--faded');
     adForm.classList.remove('ad-form--disabled');
-    window.form.enable(selectForm);
-    window.form.enable(fieldsetForm);
+    window.form.trigger.enable(selectForm);
+    window.form.trigger.enable(fieldsetForm);
     similarListPins.appendChild(pinFragment);
   };
 
   var onMainPinUnpress = function () {
-    document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.offsetX) + ', ' + (delPX(mainPin.style.top) + window.pins.offsetY);
+    document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.Y);
   };
 
-  window.form.disable(selectForm);
-  window.form.disable(fieldsetForm);
-  window.form.checkRoomCapacity();
-  window.form.checkMinPrice();
+  window.form.trigger.disable(selectForm);
+  window.form.trigger.disable(fieldsetForm);
+  window.form.check.roomCapacity();
+  window.form.check.minPrice();
 
-  document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.offsetX) + ', ' + (delPX(mainPin.style.top) + window.pins.offsetY);
+  document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.Y);
 
   mainPin.addEventListener('mousedown', function (MouseEvent) {
     if (MouseEvent.button === MAIN_MOUSE_BUTTON) {
@@ -82,6 +86,6 @@
   });
 
   mainPin.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, onMainPinPress);
+    window.util.isEvent.enter(evt, onMainPinPress);
   });
 })();

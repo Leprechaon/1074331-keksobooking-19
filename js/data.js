@@ -8,10 +8,15 @@
   var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
   var TYPES = ['palace', 'flat', 'house', 'bungalo'];
   var ROOMS = 6;
-  var Y_MIN = 130;
-  var Y_MAX = 630;
   var map = document.querySelector('.map');
-  var xMax = map.offsetWidth;
+  var Y = {
+    MIN: 130,
+    MAX: 630
+  };
+  var X = {
+    MIN: 0,
+    MAX: map.offsetWidth
+  };
 
   // Выбирает произвольные элементы из коллекции и их количество
   var doSelections = function (arr) {
@@ -29,8 +34,8 @@
     var titleShuffle = window.util.doShuffles(TITLES);
     for (var i = 0; i < offersCount; i++) {
       var numberOfRooms = window.util.chooseRandomMinMax(1, ROOMS);
-      var x = window.util.chooseRandomMinMax(0, xMax);
-      var y = window.util.chooseRandomMinMax(Y_MIN, Y_MAX);
+      var x = window.util.chooseRandomMinMax(X.MIN, X.MAX);
+      var y = window.util.chooseRandomMinMax(Y.MIN, Y.MAX);
       array[i] = {
         author: {
           avatar: AVATARS[i]

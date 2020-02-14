@@ -1,18 +1,20 @@
 'use strict';
 
 (function () {
-  var ESC_KEY = 27;
-  var ENTER_KEY = 13;
-
-  var isEscapeEvent = function (evt, action, atr) {
-    if (evt.keyCode === ESC_KEY) {
-      action(atr);
-    }
+  var KEY_CODE = {ESC: 27,
+    ENTER: 13
   };
 
-  var isEnterEvent = function (evt, action, atr) {
-    if (evt.keyCode === ENTER_KEY) {
-      action(atr);
+  var isEvent = {
+    esc: function (evt, action, atr) {
+      if (evt.keyCode === KEY_CODE.ESC) {
+        action(atr);
+      }
+    },
+    enter: function (evt, action, atr) {
+      if (evt.keyCode === KEY_CODE.ENTER) {
+        action(atr);
+      }
     }
   };
 
@@ -53,7 +55,6 @@
     doShuffles: doShuffles,
     chooseRandomItem: chooseRandomItem,
     getMaxElement: getMaxElement,
-    isEscapeEvent: isEscapeEvent,
-    isEnterEvent: isEnterEvent
+    isEvent: isEvent,
   };
 })();

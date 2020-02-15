@@ -8,7 +8,10 @@
   var capacity = adForm.querySelector('#capacity');
   var timeIn = adForm.querySelector('#timein');
   var timeOut = adForm.querySelector('#timeout');
-
+  var FLAT_MIN_PRICE = 1000;
+  var HOUSE_MIN_PRICE = 5000;
+  var PALACE_MIN_PRICE = 10000;
+  var BUNGALO_MIN_PRICE = 0;
   // Отключает все элементы переданного массива
   var trigger = {
     disable: function (arr) {
@@ -29,17 +32,20 @@
   var check = {
     minPrice: function () {
       switch (type.value) {
-        case 'flat': price.min = 1000;
-          price.placeholder = '1000';
+        case 'flat':
+          price.min = FLAT_MIN_PRICE;
+          price.placeholder = FLAT_MIN_PRICE;
           break;
-        case 'house': price.min = 5000;
-          price.placeholder = '5000';
+        case 'house':
+          price.min = HOUSE_MIN_PRICE;
+          price.placeholder = HOUSE_MIN_PRICE;
           break;
-        case 'palace': price.min = 10000;
-          price.placeholder = '10000';
+        case 'palace':
+          price.min = PALACE_MIN_PRICE;
+          price.placeholder = PALACE_MIN_PRICE;
           break;
-        default: price.min = 0;
-          price.placeholder = '0';
+        default: BUNGALO_MIN_PRICE = 0;
+          price.placeholder = BUNGALO_MIN_PRICE;
       }
     },
 

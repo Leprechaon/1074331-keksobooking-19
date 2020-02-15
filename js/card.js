@@ -21,14 +21,11 @@
 
   // Определяет окончание у слов
   var makeEndOfWord = function (numberOfRooms) {
-    var endOfWord = 'ы';
-    if (numberOfRooms === 1) {
-      endOfWord = 'а';
+    switch (numberOfRooms) {
+      case 1: return 'а';
+      case 5: return '';
+      default: return 'ы';
     }
-    if (numberOfRooms === 5) {
-      endOfWord = '';
-    }
-    return endOfWord;
   };
 
   // Отрисовывает карточки с информацией

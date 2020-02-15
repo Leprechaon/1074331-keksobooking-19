@@ -5,18 +5,18 @@
 
   // Переводит слова на русский
   var translateType = function (word) {
-    var translatedWord;
     switch (word) {
-      case 'palace': translatedWord = 'Дворец';
-        break;
-      case 'flat': translatedWord = 'Квартира';
-        break;
-      case 'house': translatedWord = 'Дом';
-        break;
-      case 'bungalo': translatedWord = 'Бунгало';
-        break;
+      case 'palace':
+        return 'Дворец';
+      case 'flat':
+        return 'Квартира';
+      case 'house':
+        return 'Дом';
+      case 'bungalo':
+        return 'Бунгало';
+      default:
+        return 'Помещение';
     }
-    return translatedWord;
   };
 
   // Определяет окончание у слов

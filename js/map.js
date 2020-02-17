@@ -68,7 +68,7 @@
   };
 
   var onMainPinUnpress = function () {
-    document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.Y);
+    document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.MAIN.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.MAIN.Y);
   };
 
   window.form.trigger.disable(selectForm);
@@ -76,7 +76,7 @@
   window.form.check.roomCapacity();
   window.form.check.minPrice();
 
-  document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.Y);
+  document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.MAIN.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.MAIN.Y);
 
   mainPin.addEventListener('mousedown', function (MouseEvent) {
     if (MouseEvent.button === MAIN_MOUSE_BUTTON) {
@@ -84,8 +84,8 @@
       mainPin.addEventListener('mousemove', onMainPinUnpress);
     }
   });
-
   mainPin.addEventListener('keydown', function (evt) {
     window.util.isEvent.enter(evt, onMainPinPress);
   });
+  window.dragAndDrop.mooveElement(mainPin);
 })();

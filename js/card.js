@@ -5,30 +5,27 @@
 
   // Переводит слова на русский
   var translateType = function (word) {
-    var translatedWord;
     switch (word) {
-      case 'palace': translatedWord = 'Дворец';
-        break;
-      case 'flat': translatedWord = 'Квартира';
-        break;
-      case 'house': translatedWord = 'Дом';
-        break;
-      case 'bungalo': translatedWord = 'Бунгало';
-        break;
+      case 'palace':
+        return 'Дворец';
+      case 'flat':
+        return 'Квартира';
+      case 'house':
+        return 'Дом';
+      case 'bungalo':
+        return 'Бунгало';
+      default:
+        return 'Помещение';
     }
-    return translatedWord;
   };
 
   // Определяет окончание у слов
   var makeEndOfWord = function (numberOfRooms) {
-    var endOfWord = 'ы';
-    if (numberOfRooms === 1) {
-      endOfWord = 'а';
+    switch (numberOfRooms) {
+      case 1: return 'а';
+      case 5: return '';
+      default: return 'ы';
     }
-    if (numberOfRooms === 5) {
-      endOfWord = '';
-    }
-    return endOfWord;
   };
 
   // Отрисовывает карточки с информацией

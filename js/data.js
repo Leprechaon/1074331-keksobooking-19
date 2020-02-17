@@ -62,6 +62,8 @@
     return array;
   };
   window.data = {
-    doOffers: doOffers
+    doOffers: doOffers,
+    X: X,
+    Y: Y
   };
 })();

@@ -3,7 +3,11 @@
 (function () {
   var OFFSET = {
     X: 25,
-    Y: 70
+    Y: 70,
+    MAIN: {
+      X: 33,
+      Y: 70
+    }
   };
 
   var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');

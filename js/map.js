@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var NUMBERS_OF_OFFERS = 8;
   var MAIN_MOUSE_BUTTON = 0;
   var map = document.querySelector('.map');
   var adForm = document.querySelector('.ad-form');
@@ -11,8 +10,6 @@
   var fieldsetForm = document.querySelectorAll('fieldset');
   var mainPin = map.querySelector('.map__pin--main');
 
-  var offers = window.data.doOffers(NUMBERS_OF_OFFERS);
-
   // убирает карточку
   var removePinCard = function (oldHandler) {
     var oldPinCard = map.querySelector('.map__card');
@@ -21,6 +18,7 @@
       document.removeEventListener('keydown', oldHandler);
     }
   };
+
 
   // добавляет карточку
   var onPinPress = function (pin) {
@@ -53,10 +51,8 @@
       addClickListenerToPin(template, array[i]);
       fragment.appendChild(template);
     }
-    return fragment;
+    similarListPins.appendChild(fragment);
   };
-
-  var pinFragment = renderFragment(offers, window.pins.renderPins);
 
   // переходит в активный режим
   var onMainPinPress = function () {
@@ -64,7 +60,7 @@
     adForm.classList.remove('ad-form--disabled');
     window.form.trigger.enable(selectForm);
     window.form.trigger.enable(fieldsetForm);
-    similarListPins.appendChild(pinFragment);
+    window.backend.load(renderFragment, alert);
   };
 
   var onMainPinUnpress = function () {

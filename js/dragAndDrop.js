@@ -27,18 +27,18 @@
           y: moveEvt.clientY
         };
 
-        if ((element.offsetTop - shift.y) < (window.data.Y.MIN - window.pins.OFFSET.MAIN.Y)) {
-          element.style.top = (window.data.Y.MIN - window.pins.OFFSET.MAIN.Y) + 'px';
-        } else if ((element.offsetTop - shift.y) > (window.data.Y.MAX)) {
-          element.style.top = (window.data.Y.MAX) + 'px';
+        if ((element.offsetTop - shift.y) < (window.pins.Y.MIN - window.pins.OFFSET.MAIN.Y)) {
+          element.style.top = (window.pins.Y.MIN - window.pins.OFFSET.MAIN.Y) + 'px';
+        } else if ((element.offsetTop - shift.y) > (window.pins.Y.MAX)) {
+          element.style.top = (window.pins.Y.MAX) + 'px';
         } else {
           element.style.top = (element.offsetTop - shift.y) + 'px';
         }
 
-        if ((element.offsetLeft - shift.x) < (window.data.X.MIN - window.pins.OFFSET.MAIN.X)) {
-          element.style.left = (window.data.X.MIN - window.pins.OFFSET.MAIN.X) + 'px';
-        } else if ((element.offsetLeft - shift.x) > (window.data.X.MAX - window.pins.OFFSET.MAIN.X)) {
-          element.style.left = (window.data.X.MAX - window.pins.OFFSET.MAIN.X) + 'px';
+        if ((element.offsetLeft - shift.x) < (window.pins.X.MIN - window.pins.OFFSET.MAIN.X)) {
+          element.style.left = (window.pins.X.MIN - window.pins.OFFSET.MAIN.X) + 'px';
+        } else if ((element.offsetLeft - shift.x) > (window.pins.X.MAX - window.pins.OFFSET.MAIN.X)) {
+          element.style.left = (window.pins.X.MAX - window.pins.OFFSET.MAIN.X) + 'px';
         } else {
           element.style.left = (element.offsetLeft - shift.x) + 'px';
         }

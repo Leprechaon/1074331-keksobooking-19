@@ -1,6 +1,16 @@
 'use strict';
 
 (function () {
+  var map = document.querySelector('.map');
+  var Y = {
+    MIN: 130,
+    MAX: 630
+  };
+  var X = {
+    MIN: 0,
+    MAX: map.offsetWidth
+  };
+
   var OFFSET = {
     X: 25,
     Y: 70,
@@ -25,6 +35,8 @@
 
   window.pins = {
     renderPins: renderPins,
-    OFFSET: OFFSET
+    OFFSET: OFFSET,
+    X: X,
+    Y: Y
   };
 })();

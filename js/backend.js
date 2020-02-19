@@ -18,7 +18,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === STATUS.CODE_OK) {
-        onLoad(xhr.response, window.pins.renderPins);
+        onLoad(xhr.response, window.pins.render);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
@@ -43,20 +43,20 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === STATUS.CODE_OK) {
-        onLoad(xhr.response);
+        onLoad('success');
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('error');
       }
     });
 
     xhr.addEventListener('error', function () {
-      onError('Проверьте интернет соединение');
+      onError('error');
     });
 
     xhr.open('POST', URL.save);
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError('error');
     });
 
     xhr.timeout = timeout;

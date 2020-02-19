@@ -3,10 +3,12 @@
 (function () {
   var map = document.querySelector('.map');
   var Y = {
+    START: '375px',
     MIN: 130,
     MAX: 630
   };
   var X = {
+    START: '570px',
     MIN: 0,
     MAX: map.offsetWidth
   };
@@ -22,7 +24,7 @@
 
   var similarPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-  var renderPins = function (offer) {
+  var render = function (offer) {
     var offerPin = similarPinTemplate.cloneNode(true);
     offerPin.style.left = (offer.location.x - OFFSET.X) + 'px';
     offerPin.style.top = (offer.location.y - OFFSET.Y) + 'px';
@@ -34,7 +36,7 @@
   };
 
   window.pins = {
-    renderPins: renderPins,
+    render: render,
     OFFSET: OFFSET,
     X: X,
     Y: Y

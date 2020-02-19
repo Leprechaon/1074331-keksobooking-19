@@ -29,7 +29,7 @@
   };
 
   // Отрисовывает карточки с информацией
-  var renderCards = function (offer) {
+  var render = function (offer) {
     var offerCard = similarCardTemplate.cloneNode(true);
     offerCard.querySelector('.popup__avatar').src = offer.author.avatar;
     offerCard.querySelector('.popup__title').textContent = offer.offer.title;
@@ -61,6 +61,6 @@
   };
 
   window.card = {
-    render: renderCards
+    render: render
   };
 })();

@@ -5,6 +5,8 @@
     ENTER: 13
   };
 
+  var MAIN_MOUSE_BUTTON = 0;
+
   var isEvent = {
     esc: function (evt, action, atr) {
       if (evt.keyCode === KEY_CODE.ESC) {
@@ -15,6 +17,17 @@
       if (evt.keyCode === KEY_CODE.ENTER) {
         action(atr);
       }
+    },
+    mainMouseButton: function (evt, action, atr) {
+      if (evt.button === MAIN_MOUSE_BUTTON) {
+        action(atr);
+      }
+    }
+  };
+
+  var delElements = function (arr) {
+    for (var i = 0; i < arr.length; i++) {
+      arr[i].parentNode.removeChild(arr[i]);
     }
   };
 
@@ -56,5 +69,8 @@
     chooseRandomItem: chooseRandomItem,
     getMaxElement: getMaxElement,
     isEvent: isEvent,
+    delElements: delElements,
+    MAIN_MOUSE_BUTTON: MAIN_MOUSE_BUTTON,
+    KEY_CODE: KEY_CODE
   };
 })();

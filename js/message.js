@@ -7,6 +7,16 @@
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var errorMessage = errorTemplate.cloneNode(true);
 
+  var removeListener = function () {
+    if (errorMessage) {
+      errorMessage.remove();
+    }
+    if (successMessage) {
+      successMessage.remove();
+    }
+    document.removeEventListener('keydown', close);
+    document.removeEventListener('click', close);
+  };
 
   var open = function (status) {
     switch (status) {
@@ -19,30 +29,17 @@
         main.appendChild(errorMessage);
         document.addEventListener('click', close);
         document.addEventListener('keydown', close);
-        errorMessage.querySelector('.error__button').addEventListener('click', function () {
-          errorMessage.remove();
-          document.removeEventListener('keydown', close);
-          document.removeEventListener('click', close);
-        });
+        errorMessage.querySelector('.error__button').addEventListener('click', removeListener);
         break;
     }
   };
 
   var close = function (evt) {
-    if (evt.button === window.util.MAIN_MOUSE_BUTTON || evt.keyCode === window.util.KEY_CODE.ESC) {
-      if (errorMessage) {
-        errorMessage.remove();
-      }
-      if (successMessage) {
-        successMessage.remove();
-      }
-      document.removeEventListener('keydown', close);
-      document.removeEventListener('click', close);
-    }
+    window.util.isEvent.esc(evt, removeListener);
+    window.util.isEvent.mainMouseButton(evt, removeListener);
   };
 
   window.message = {
-    open: open,
-    close: close
+    open: open
   };
 })();

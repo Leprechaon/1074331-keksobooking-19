@@ -18,7 +18,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === STATUS.CODE_OK) {
-        onLoad(xhr.response, window.pins.renderPins);
+        onLoad(xhr.response, window.pins.render);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }

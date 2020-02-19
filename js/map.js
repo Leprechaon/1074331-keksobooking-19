@@ -54,6 +54,27 @@
     similarListPins.appendChild(fragment);
   };
 
+  var onSuccess = function (status) {
+    switchOffPage();
+    window.message.open(status);
+  };
+
+  var onError = function (status) {
+    window.message.open(status);
+  };
+
+  var switchOffPage = function () {
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    window.form.trigger.disable(selectForm);
+    window.form.trigger.disable(fieldsetForm);
+    window.util.delElements(document.querySelectorAll('.map__pin--ads'));
+    removePinCard();
+    mainPin.style.left = window.pins.X.START;
+    mainPin.style.top = window.pins.Y.START;
+    adForm.reset();
+  };
+
   // переходит в активный режим
   var onMainPinPress = function () {
     map.classList.remove('map--faded');
@@ -61,6 +82,10 @@
     window.form.trigger.enable(selectForm);
     window.form.trigger.enable(fieldsetForm);
     window.backend.load(renderFragment, alert);
+    adForm.addEventListener('submit', function (evt) {
+      window.backend.save(new FormData(adForm), onSuccess, onError);
+      evt.preventDefault();
+    });
   };
 
   var onMainPinUnpress = function () {

@@ -3,10 +3,12 @@
 (function () {
   var map = document.querySelector('.map');
   var Y = {
+    START: '375px',
     MIN: 130,
     MAX: 630
   };
   var X = {
+    START: '570px',
     MIN: 0,
     MAX: map.offsetWidth
   };

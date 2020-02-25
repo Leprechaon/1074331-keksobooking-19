@@ -7,10 +7,17 @@
 
   var updatePins = function (param) {
     window.map.removePinCard();
-    var filteredAds = dataFromServer.filter(function (item) {
-      return item.offer.type === param;
-    });
-    window.map.renderFragment(filteredAds, window.pins.render);
+    switch (param) {
+      case 'any':
+        var anyAds = dataFromServer.slice();
+        window.map.renderFragment(window.util.doShuffles(anyAds), window.pins.render);
+        break;
+      default:
+        var filteredAds = dataFromServer.filter(function (item) {
+          return item.offer.type === param;
+        });
+        window.map.renderFragment(filteredAds, window.pins.render);
+    }
   };
 
   var pins = function (arr) {

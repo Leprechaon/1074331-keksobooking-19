@@ -2,6 +2,7 @@
 
 (function () {
   var MAIN_MOUSE_BUTTON = 0;
+  var QUANTITY_ADS = 5;
   var map = document.querySelector('.map');
   var adForm = document.querySelector('.ad-form');
   var similarListPins = document.querySelector('.map__pins');
@@ -46,7 +47,7 @@
   var renderFragment = function (array, templateFunction) {
     window.util.delElements(document.querySelectorAll('.map__pin--ads'));
     var fragment = document.createDocumentFragment();
-    var takeNumber = array.length > window.util.QUANTITY_ADS ? window.util.QUANTITY_ADS : array.length;
+    var takeNumber = array.length > QUANTITY_ADS ? QUANTITY_ADS : array.length;
     for (var i = 0; i < takeNumber; i++) {
       var template = templateFunction(array[i]);
       addClickListenerToPin(template, array[i]);
@@ -56,7 +57,8 @@
   };
 
   var onSuccessLoad = function (data) {
-    renderFragment(data, window.pins.render);
+    var anyAds = data.slice();
+    renderFragment(window.util.doShuffles(anyAds), window.pins.render);
     window.filter.pins(data);
   };
 

@@ -7,6 +7,8 @@
 
   var MAIN_MOUSE_BUTTON = 0;
 
+  var QUANTITY_ADS = 5;
+
   var isEvent = {
     esc: function (evt, action, atr) {
       if (evt.keyCode === KEY_CODE.ESC) {
@@ -71,6 +73,7 @@
     isEvent: isEvent,
     delElements: delElements,
     MAIN_MOUSE_BUTTON: MAIN_MOUSE_BUTTON,
-    KEY_CODE: KEY_CODE
+    KEY_CODE: KEY_CODE,
+    QUANTITY_ADS: QUANTITY_ADS
   };
 })();

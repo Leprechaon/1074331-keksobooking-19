@@ -19,7 +19,6 @@
     }
   };
 
-
   // добавляет карточку
   var onPinPress = function (pin) {
     removePinCard();
@@ -45,8 +44,10 @@
 
   // отрисовывает фрагмент с элементами
   var renderFragment = function (array, templateFunction) {
+    window.util.delElements(document.querySelectorAll('.map__pin--ads'));
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < array.length; i++) {
+    var takeNumber = array.length > window.util.QUANTITY_ADS ? window.util.QUANTITY_ADS : array.length;
+    for (var i = 0; i < takeNumber; i++) {
       var template = templateFunction(array[i]);
       addClickListenerToPin(template, array[i]);
       fragment.appendChild(template);
@@ -54,7 +55,12 @@
     similarListPins.appendChild(fragment);
   };
 
-  var onSuccess = function (status) {
+  var onSuccessLoad = function (data) {
+    renderFragment(data, window.pins.render);
+    window.filter.pins(data);
+  };
+
+  var onSuccessSave = function (status) {
     switchOffPage();
     window.message.open(status);
   };
@@ -81,9 +87,9 @@
     adForm.classList.remove('ad-form--disabled');
     window.form.trigger.enable(selectForm);
     window.form.trigger.enable(fieldsetForm);
-    window.backend.load(renderFragment, alert);
+    window.backend.load(onSuccessLoad, alert);
     adForm.addEventListener('submit', function (evt) {
-      window.backend.save(new FormData(adForm), onSuccess, onError);
+      window.backend.save(new FormData(adForm), onSuccessSave, onError);
       evt.preventDefault();
     });
   };
@@ -109,4 +115,9 @@
     window.util.isEvent.enter(evt, onMainPinPress);
   });
   window.dragAndDrop.mooveElement(mainPin);
+
+  window.map = {
+    renderFragment: renderFragment,
+    removePinCard: removePinCard
+  };
 })();

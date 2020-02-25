@@ -22,16 +22,14 @@
     switch (status) {
       case 'success':
         main.appendChild(successMessage);
-        document.addEventListener('click', close);
-        document.addEventListener('keydown', close);
         break;
       case 'error':
         main.appendChild(errorMessage);
-        document.addEventListener('click', close);
-        document.addEventListener('keydown', close);
         errorMessage.querySelector('.error__button').addEventListener('click', removeListener);
         break;
     }
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
   };
 
   var close = function (evt) {

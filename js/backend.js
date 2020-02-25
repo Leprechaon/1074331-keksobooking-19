@@ -10,7 +10,6 @@
   };
   var timeout = 10000;
 
-
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -18,7 +17,7 @@
 
     xhr.addEventListener('load', function () {
       if (xhr.status === STATUS.CODE_OK) {
-        onLoad(xhr.response, window.pins.render);
+        onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
@@ -65,6 +64,6 @@
 
   window.backend = {
     load: load,
-    save: save
+    save: save,
   };
 })();

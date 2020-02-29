@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var MAIN_MOUSE_BUTTON = 0;
   var QUANTITY_ADS = 5;
   var map = document.querySelector('.map');
   var adForm = document.querySelector('.ad-form');
@@ -81,6 +80,8 @@
     mainPin.style.left = window.pins.X.START;
     mainPin.style.top = window.pins.Y.START;
     adForm.reset();
+    mainPin.addEventListener('click', pinMouseListener);
+    mainPin.addEventListener('keydown', pinKeyListener);
   };
 
   // переходит в активный режим
@@ -94,10 +95,20 @@
       window.backend.save(new FormData(adForm), onSuccessSave, onError);
       evt.preventDefault();
     });
+    mainPin.removeEventListener('mousedown', pinMouseListener);
+    mainPin.removeEventListener('keydown', pinKeyListener);
   };
 
   var onMainPinUnpress = function () {
     document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.MAIN.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.MAIN.Y);
+  };
+
+  var pinMouseListener = function (evt) {
+    window.util.isEvent.mainMouseButton(evt, onMainPinPress);
+  };
+
+  var pinKeyListener = function (evt) {
+    window.util.isEvent.enter(evt, onMainPinPress);
   };
 
   window.form.trigger.disable(selectForm);
@@ -105,17 +116,10 @@
   window.form.check.roomCapacity();
   window.form.check.minPrice();
 
-  document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.MAIN.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.MAIN.Y);
-
-  mainPin.addEventListener('mousedown', function (MouseEvent) {
-    if (MouseEvent.button === MAIN_MOUSE_BUTTON) {
-      onMainPinPress();
-      mainPin.addEventListener('mousemove', onMainPinUnpress);
-    }
-  });
-  mainPin.addEventListener('keydown', function (evt) {
-    window.util.isEvent.enter(evt, onMainPinPress);
-  });
+  onMainPinUnpress();
+  mainPin.addEventListener('mousedown', pinMouseListener);
+  mainPin.addEventListener('keydown', pinKeyListener);
+  mainPin.addEventListener('mousemove', onMainPinUnpress);
   window.dragAndDrop.mooveElement(mainPin);
 
   window.map = {

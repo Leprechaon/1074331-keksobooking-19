@@ -12,6 +12,7 @@
   var HOUSE_MIN_PRICE = 5000;
   var PALACE_MIN_PRICE = 10000;
   var BUNGALO_MIN_PRICE = 0;
+
   // Отключает все элементы переданного массива
   var trigger = {
     disable: function (arr) {

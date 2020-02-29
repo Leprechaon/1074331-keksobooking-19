@@ -80,7 +80,7 @@
     mainPin.style.left = window.pins.X.START;
     mainPin.style.top = window.pins.Y.START;
     adForm.reset();
-    mainPin.addEventListener('click', pinMouseListener);
+    mainPin.addEventListener('mousedown', pinMouseListener);
     mainPin.addEventListener('keydown', pinKeyListener);
   };
 

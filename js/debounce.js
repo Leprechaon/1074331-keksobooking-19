@@ -1,0 +1,22 @@
+'use strict';
+(function () {
+  var DEBOUNCE_INTERVAL = 500;
+
+  var del = function (cb) {
+    var lastTimeout = null;
+
+    return function () {
+      var parameters = arguments;
+      if (lastTimeout) {
+        clearTimeout(lastTimeout);
+      }
+      lastTimeout = window.setTimeout(function () {
+        cb.apply(null, parameters);
+      }, DEBOUNCE_INTERVAL);
+    };
+  };
+
+  window.debounce = {
+    del: del
+  };
+})();

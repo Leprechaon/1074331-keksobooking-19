@@ -91,7 +91,7 @@
     window.map.renderFragment(window.util.doShuffles(finalAds), window.pins.render);
   });
 
-  var pins = function (arr) {
+  var activate = function (arr) {
     dataFromServer = arr;
     housingType.addEventListener('change', updatePins);
     housingPrice.addEventListener('change', updatePins);
@@ -100,7 +100,17 @@
     housingFeatures.addEventListener('change', updatePins);
   };
 
+  var deactivate = function () {
+    housingType.removeEventListener('change', updatePins);
+    housingPrice.removeEventListener('change', updatePins);
+    housingRooms.removeEventListener('change', updatePins);
+    housingGuests.removeEventListener('change', updatePins);
+    housingFeatures.removeEventListener('change', updatePins);
+    mapFilters.reset();
+  };
+
   window.filter = {
-    pins: pins
+    activate: activate,
+    deactivate: deactivate
   };
 })();

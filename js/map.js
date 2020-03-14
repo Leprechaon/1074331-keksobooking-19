@@ -55,10 +55,15 @@
     similarListPins.appendChild(fragment);
   };
 
+  var firstCheck = function () {
+    window.form.check.roomCapacity();
+    window.form.check.minPrice();
+  };
+
   var onSuccessLoad = function (data) {
     var anyAds = data.slice();
     renderFragment(window.util.doShuffles(anyAds), window.pins.render);
-    window.filter.pins(data);
+    window.filter.activate(data);
   };
 
   var onSuccessSave = function (status) {
@@ -79,7 +84,8 @@
     removePinCard();
     mainPin.style.left = window.pins.X.START;
     mainPin.style.top = window.pins.Y.START;
-    adForm.reset();
+    window.form.default();
+    window.filter.deactivate();
     mainPin.addEventListener('mousedown', pinMouseListener);
     mainPin.addEventListener('keydown', pinKeyListener);
   };
@@ -97,6 +103,7 @@
     });
     mainPin.removeEventListener('mousedown', pinMouseListener);
     mainPin.removeEventListener('keydown', pinKeyListener);
+    firstCheck();
   };
 
   var onMainPinUnpress = function () {
@@ -113,8 +120,7 @@
 
   window.form.trigger.disable(selectForm);
   window.form.trigger.disable(fieldsetForm);
-  window.form.check.roomCapacity();
-  window.form.check.minPrice();
+  firstCheck();
 
   onMainPinUnpress();
   mainPin.addEventListener('mousedown', pinMouseListener);
@@ -124,6 +130,8 @@
 
   window.map = {
     renderFragment: renderFragment,
-    removePinCard: removePinCard
+    removePinCard: removePinCard,
+    onMainPinUnpress: onMainPinUnpress,
+    switchOffPage: switchOffPage
   };
 })();

@@ -43,13 +43,13 @@
   };
 
   // отрисовывает фрагмент с элементами
-  var renderFragment = function (array, templateFunction) {
+  var renderFragment = function (pins, templateFunction) {
     window.util.delElements(document.querySelectorAll('.map__pin--ads'));
     var fragment = document.createDocumentFragment();
-    var takeNumber = array.length > QUANTITY_ADS ? QUANTITY_ADS : array.length;
+    var takeNumber = pins.length > QUANTITY_ADS ? QUANTITY_ADS : pins.length;
     for (var i = 0; i < takeNumber; i++) {
-      var template = templateFunction(array[i]);
-      addClickListenerToPin(template, array[i]);
+      var template = templateFunction(pins[i]);
+      addClickListenerToPin(template, pins[i]);
       fragment.appendChild(template);
     }
     similarListPins.appendChild(fragment);
@@ -88,6 +88,12 @@
     window.filter.deactivate();
     mainPin.addEventListener('mousedown', pinMouseListener);
     mainPin.addEventListener('keydown', pinKeyListener);
+    adForm.removeEventListener('submit', sentFormListener);
+  };
+
+  var sentFormListener = function (evt) {
+    window.backend.save(new FormData(adForm), onSuccessSave, onError);
+    evt.preventDefault();
   };
 
   // переходит в активный режим
@@ -97,10 +103,7 @@
     window.form.trigger.enable(selectForm);
     window.form.trigger.enable(fieldsetForm);
     window.backend.load(onSuccessLoad, alert);
-    adForm.addEventListener('submit', function (evt) {
-      window.backend.save(new FormData(adForm), onSuccessSave, onError);
-      evt.preventDefault();
-    });
+    adForm.addEventListener('submit', sentFormListener);
     mainPin.removeEventListener('mousedown', pinMouseListener);
     mainPin.removeEventListener('keydown', pinKeyListener);
     firstCheck();
@@ -126,7 +129,7 @@
   mainPin.addEventListener('mousedown', pinMouseListener);
   mainPin.addEventListener('keydown', pinKeyListener);
   mainPin.addEventListener('mousemove', onMainPinUnpress);
-  window.dragAndDrop.mooveElement(mainPin);
+  window.dragAndDrop.moveElement(mainPin);
 
   window.map = {
     renderFragment: renderFragment,

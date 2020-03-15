@@ -3,6 +3,11 @@
 (function () {
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
+  var PHOTO = {
+    WIDTH: 45,
+    HEIGHT: 40
+  };
+
   // Переводит слова на русский
   var translateType = function (word) {
     switch (word) {
@@ -52,8 +57,8 @@
       var photo = document.createElement('img');
       photo.classList = 'popup__photo';
       photo.src = offer.offer.photos[j];
-      photo.width = 45;
-      photo.height = 40;
+      photo.width = PHOTO.WIDTH;
+      photo.height = PHOTO.HEIGHT;
       photo.alt = 'Фотография жилья';
       popupPhotos.appendChild(photo);
     }

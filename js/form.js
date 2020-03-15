@@ -11,25 +11,41 @@
   var timeOut = adForm.querySelector('#timeout');
   var description = adForm.querySelector('#description');
   var resetButton = adForm.querySelector('.ad-form__reset');
+  var features = adForm.querySelector('.features');
   var FLAT_MIN_PRICE = 1000;
   var HOUSE_MIN_PRICE = 5000;
   var PALACE_MIN_PRICE = 10000;
   var BUNGALO_MIN_PRICE = 0;
 
+  var featureFormKeyListener = function (evt) {
+    window.util.isEvent.enter(evt, onFeatureFormKeydown, evt.target);
+  };
+
+  var onFeatureFormKeydown = function (feature, evt) {
+    evt.preventDefault();
+    switch (feature.checked) {
+      case true:
+        feature.checked = false;
+        break;
+      default:
+        feature.checked = true;
+    }
+  };
+
   // Отключает все элементы переданного массива
   var trigger = {
-    disable: function (arr) {
-      for (var i = 0; i < arr.length; i++) {
-        arr[i].disabled = true;
+    disable: function (inputs) {
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
       }
       window.preview.deactivate();
       resetButton.removeEventListener('click', onResetButtonPress);
     },
 
     // Включает все элементы переданного массива
-    enable: function (arr) {
-      for (var i = 0; i < arr.length; i++) {
-        arr[i].disabled = false;
+    enable: function (inputs) {
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = false;
       }
       window.preview.activate();
       resetButton.addEventListener('click', onResetButtonPress);
@@ -75,7 +91,8 @@
           price.min = PALACE_MIN_PRICE;
           price.placeholder = PALACE_MIN_PRICE;
           break;
-        default: BUNGALO_MIN_PRICE = 0;
+        default:
+          price.min = BUNGALO_MIN_PRICE;
           price.placeholder = BUNGALO_MIN_PRICE;
       }
     },
@@ -123,6 +140,8 @@
   timeOut.addEventListener('change', function () {
     check.syncInOut(timeOut.value);
   });
+
+  features.addEventListener('keydown', featureFormKeyListener);
 
   window.form = {
     trigger: trigger,

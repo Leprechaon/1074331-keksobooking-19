@@ -8,7 +8,7 @@
   var STATUS = {
     CODE_OK: 200
   };
-  var timeout = 10000;
+  var TIMEOUT = 10000;
 
   var load = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -31,7 +31,7 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = timeout;
+    xhr.timeout = TIMEOUT;
 
     xhr.send();
   };
@@ -58,7 +58,7 @@
       onError('error');
     });
 
-    xhr.timeout = timeout;
+    xhr.timeout = TIMEOUT;
     xhr.send(data);
   };
 

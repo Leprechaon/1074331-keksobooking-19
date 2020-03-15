@@ -16,8 +16,8 @@
   };
 
   var filtrationByType = function (file) {
-    return FILE_TYPES.some(function (it) {
-      return file.name.toLowerCase().endsWith(it);
+    return FILE_TYPES.some(function (type) {
+      return file.name.toLowerCase().endsWith(type);
     });
   };
 

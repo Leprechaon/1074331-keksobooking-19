@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mooveElement = function (element) {
+  var moveElement = function (element) {
     element.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
@@ -46,7 +46,7 @@
 
       var onMouseUp = function (upEvt) {
         upEvt.preventDefault();
-
+        window.map.onMainPinUnpress();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
 
@@ -65,6 +65,6 @@
 
   };
   window.dragAndDrop = {
-    mooveElement: mooveElement
+    moveElement: moveElement
   };
 })();

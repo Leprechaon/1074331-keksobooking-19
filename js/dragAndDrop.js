@@ -5,7 +5,7 @@
     element.addEventListener('mousedown', function (evt) {
       evt.preventDefault();
 
-      var startCoords = {
+      var StartCoords = {
         x: evt.clientX,
         y: evt.clientY
       };
@@ -17,30 +17,30 @@
 
         dragged = true;
 
-        var shift = {
-          x: startCoords.x - moveEvt.clientX,
-          y: startCoords.y - moveEvt.clientY
+        var Shift = {
+          x: StartCoords.x - moveEvt.clientX,
+          y: StartCoords.y - moveEvt.clientY
         };
 
-        startCoords = {
+        StartCoords = {
           x: moveEvt.clientX,
           y: moveEvt.clientY
         };
 
-        if ((element.offsetTop - shift.y) < (window.pins.Y.MIN - window.pins.OFFSET.MAIN.Y)) {
+        if ((element.offsetTop - Shift.y) < (window.pins.Y.MIN - window.pins.OFFSET.MAIN.Y)) {
           element.style.top = (window.pins.Y.MIN - window.pins.OFFSET.MAIN.Y) + 'px';
-        } else if ((element.offsetTop - shift.y) > (window.pins.Y.MAX)) {
+        } else if ((element.offsetTop - Shift.y) > (window.pins.Y.MAX)) {
           element.style.top = (window.pins.Y.MAX) + 'px';
         } else {
-          element.style.top = (element.offsetTop - shift.y) + 'px';
+          element.style.top = (element.offsetTop - Shift.y) + 'px';
         }
 
-        if ((element.offsetLeft - shift.x) < (window.pins.X.MIN - window.pins.OFFSET.MAIN.X)) {
+        if ((element.offsetLeft - Shift.x) < (window.pins.X.MIN - window.pins.OFFSET.MAIN.X)) {
           element.style.left = (window.pins.X.MIN - window.pins.OFFSET.MAIN.X) + 'px';
-        } else if ((element.offsetLeft - shift.x) > (window.pins.X.MAX - window.pins.OFFSET.MAIN.X)) {
+        } else if ((element.offsetLeft - Shift.x) > (window.pins.X.MAX - window.pins.OFFSET.MAIN.X)) {
           element.style.left = (window.pins.X.MAX - window.pins.OFFSET.MAIN.X) + 'px';
         } else {
-          element.style.left = (element.offsetLeft - shift.x) + 'px';
+          element.style.left = (element.offsetLeft - Shift.x) + 'px';
         }
       };
 

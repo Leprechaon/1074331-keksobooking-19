@@ -26,7 +26,7 @@
     updatePins();
   };
 
-  var filtration = {
+  var Filtration = {
     byType: function (ads) {
       switch (housingType.value) {
         case 'any':
@@ -102,7 +102,7 @@
 
   var updatePins = window.debounce(function () {
     window.map.removePinCard();
-    var finalAds = filtration.byPrice(filtration.byType(filtration.byRooms(filtration.byGuests(filtration.byFeatures(dataFromServer)))));
+    var finalAds = Filtration.byPrice(Filtration.byType(Filtration.byRooms(Filtration.byGuests(Filtration.byFeatures(dataFromServer)))));
     window.map.renderFragment(window.util.doShuffles(finalAds), window.pins.render);
   });
 

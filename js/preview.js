@@ -9,7 +9,7 @@
   var imagePreviewWrapper = document.querySelector('.ad-form__photo');
   var image = document.createElement('img');
 
-  var imageSizes = {
+  var ImageSizes = {
     WIDTH: '70px',
     HEIGHT: '70px',
     BORDER_RADIUS: '5px'
@@ -38,9 +38,9 @@
 
   var addImage = function (src) {
     image.src = src;
-    image.style.width = imageSizes.WIDTH;
-    image.style.height = imageSizes.HEIGHT;
-    image.style.borderRadius = imageSizes.BORDER_RADIUS;
+    image.style.width = ImageSizes.WIDTH;
+    image.style.height = ImageSizes.HEIGHT;
+    image.style.borderRadius = ImageSizes.BORDER_RADIUS;
     if (!document.querySelector('.add-form__image')) {
       imagePreviewWrapper.appendChild(image);
       image.classList.add('add-form__image');

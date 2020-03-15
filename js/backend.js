@@ -5,7 +5,7 @@
     load: 'https://js.dump.academy/keksobooking/data',
     save: 'https://js.dump.academy/keksobooking'
   };
-  var STATUS = {
+  var Status = {
     CODE_OK: 200
   };
   var TIMEOUT = 10000;
@@ -16,7 +16,7 @@
     xhr.open('GET', URL.load);
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS.CODE_OK) {
+      if (xhr.status === Status.CODE_OK) {
         onLoad(xhr.response);
       } else {
         onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -41,7 +41,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS.CODE_OK) {
+      if (xhr.status === Status.CODE_OK) {
         onLoad('success');
       } else {
         onError('error');

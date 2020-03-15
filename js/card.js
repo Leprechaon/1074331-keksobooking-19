@@ -3,7 +3,7 @@
 (function () {
   var similarCardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-  var PHOTO = {
+  var Photo = {
     WIDTH: 45,
     HEIGHT: 40
   };
@@ -57,8 +57,8 @@
       var photo = document.createElement('img');
       photo.classList = 'popup__photo';
       photo.src = offer.offer.photos[j];
-      photo.width = PHOTO.WIDTH;
-      photo.height = PHOTO.HEIGHT;
+      photo.width = Photo.WIDTH;
+      photo.height = Photo.HEIGHT;
       photo.alt = 'Фотография жилья';
       popupPhotos.appendChild(photo);
     }

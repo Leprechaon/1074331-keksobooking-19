@@ -33,7 +33,7 @@
   };
 
   // Отключает все элементы переданного массива
-  var trigger = {
+  var Trigger = {
     disable: function (inputs) {
       for (var i = 0; i < inputs.length; i++) {
         inputs[i].disabled = true;
@@ -144,7 +144,7 @@
   features.addEventListener('keydown', featureFormKeyListener);
 
   window.form = {
-    trigger: trigger,
+    trigger: Trigger,
     check: check,
     default: resetValue
   };

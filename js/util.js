@@ -15,7 +15,7 @@
     },
     enter: function (evt, action, atr) {
       if (evt.keyCode === KEY_CODE.ENTER) {
-        action(atr);
+        action(atr, evt);
       }
     },
     mainMouseButton: function (evt, action, atr) {

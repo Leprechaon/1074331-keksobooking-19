@@ -43,22 +43,27 @@
   };
 
   // отрисовывает фрагмент с элементами
-  var renderFragment = function (array, templateFunction) {
+  var renderFragment = function (pins, templateFunction) {
     window.util.delElements(document.querySelectorAll('.map__pin--ads'));
     var fragment = document.createDocumentFragment();
-    var takeNumber = array.length > QUANTITY_ADS ? QUANTITY_ADS : array.length;
+    var takeNumber = pins.length > QUANTITY_ADS ? QUANTITY_ADS : pins.length;
     for (var i = 0; i < takeNumber; i++) {
-      var template = templateFunction(array[i]);
-      addClickListenerToPin(template, array[i]);
+      var template = templateFunction(pins[i]);
+      addClickListenerToPin(template, pins[i]);
       fragment.appendChild(template);
     }
     similarListPins.appendChild(fragment);
   };
 
+  var firstCheck = function () {
+    window.form.check.roomCapacity();
+    window.form.check.minPrice();
+  };
+
   var onSuccessLoad = function (data) {
     var anyAds = data.slice();
     renderFragment(window.util.doShuffles(anyAds), window.pins.render);
-    window.filter.pins(data);
+    window.filter.activate(data);
   };
 
   var onSuccessSave = function (status) {
@@ -79,9 +84,16 @@
     removePinCard();
     mainPin.style.left = window.pins.X.START;
     mainPin.style.top = window.pins.Y.START;
-    adForm.reset();
+    window.form.default();
+    window.filter.deactivate();
     mainPin.addEventListener('mousedown', pinMouseListener);
     mainPin.addEventListener('keydown', pinKeyListener);
+    adForm.removeEventListener('submit', sentFormListener);
+  };
+
+  var sentFormListener = function (evt) {
+    window.backend.save(new FormData(adForm), onSuccessSave, onError);
+    evt.preventDefault();
   };
 
   // переходит в активный режим
@@ -91,12 +103,10 @@
     window.form.trigger.enable(selectForm);
     window.form.trigger.enable(fieldsetForm);
     window.backend.load(onSuccessLoad, alert);
-    adForm.addEventListener('submit', function (evt) {
-      window.backend.save(new FormData(adForm), onSuccessSave, onError);
-      evt.preventDefault();
-    });
+    adForm.addEventListener('submit', sentFormListener);
     mainPin.removeEventListener('mousedown', pinMouseListener);
     mainPin.removeEventListener('keydown', pinKeyListener);
+    firstCheck();
   };
 
   var onMainPinUnpress = function () {
@@ -113,17 +123,18 @@
 
   window.form.trigger.disable(selectForm);
   window.form.trigger.disable(fieldsetForm);
-  window.form.check.roomCapacity();
-  window.form.check.minPrice();
+  firstCheck();
 
   onMainPinUnpress();
   mainPin.addEventListener('mousedown', pinMouseListener);
   mainPin.addEventListener('keydown', pinKeyListener);
   mainPin.addEventListener('mousemove', onMainPinUnpress);
-  window.dragAndDrop.mooveElement(mainPin);
+  window.dragAndDrop.moveElement(mainPin);
 
   window.map = {
     renderFragment: renderFragment,
-    removePinCard: removePinCard
+    removePinCard: removePinCard,
+    onMainPinUnpress: onMainPinUnpress,
+    switchOffPage: switchOffPage
   };
 })();

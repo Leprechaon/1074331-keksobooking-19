@@ -31,22 +31,6 @@
     }
   };
 
-  var getMaxElement = function (arr) {
-    var MaxElement = arr[0];
-
-    for (var i = 0; i < arr.length; i++) {
-      if (MaxElement < arr[i]) {
-        MaxElement = arr[i];
-      }
-    }
-    return MaxElement;
-  };
-
-  // Выбирает любое число в заданном интервале
-  var chooseRandomMinMax = function (min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
   // Перемешивает массив
   var doShuffles = function (arr) {
     for (var i = arr.length - 1; i > 0; i--) {
@@ -58,16 +42,8 @@
     return arr;
   };
 
-  var chooseRandomItem = function (arr) {
-    var number = arr.length;
-    return Math.floor(Math.random() * (number));
-  };
-
   window.util = {
-    chooseRandomMinMax: chooseRandomMinMax,
     doShuffles: doShuffles,
-    chooseRandomItem: chooseRandomItem,
-    getMaxElement: getMaxElement,
     isEvent: isEvent,
     delElements: delElements,
     MAIN_MOUSE_BUTTON: MAIN_MOUSE_BUTTON,

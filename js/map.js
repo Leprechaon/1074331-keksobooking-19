@@ -20,8 +20,13 @@
   };
 
   // добавляет карточку
-  var onPinPress = function (pin) {
+  var onPinPress = function (template, pin) {
+    var active = map.querySelector('.map__pin--active');
+    if (active) {
+      active.classList.remove('map__pin--active');
+    }
     removePinCard();
+    template.classList.add('map__pin--active');
     similarListPins.after(window.card.render(pin));
     var pinCard = map.querySelector('.popup__close');
     pinCard.addEventListener('click', removePinCard);
@@ -32,7 +37,7 @@
 
   var addClickListenerToPin = function (template, pin) {
     template.addEventListener('click', function () {
-      onPinPress(pin);
+      onPinPress(template, pin);
     });
   };
 
@@ -62,8 +67,16 @@
 
   var onSuccessLoad = function (data) {
     var anyAds = data.slice();
+    map.classList.remove('map--faded');
+    adForm.classList.remove('ad-form--disabled');
+    window.form.toggle.enable(selectForm);
+    window.form.toggle.enable(fieldsetForm);
     renderFragment(window.util.doShuffles(anyAds), window.pins.render);
     window.filter.activate(data);
+    adForm.addEventListener('submit', sentFormListener);
+    mainPin.removeEventListener('mousedown', pinMouseListener);
+    mainPin.removeEventListener('keydown', pinKeyListener);
+    firstCheck();
   };
 
   var onSuccessSave = function (status) {
@@ -78,8 +91,8 @@
   var switchOffPage = function () {
     map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
-    window.form.trigger.disable(selectForm);
-    window.form.trigger.disable(fieldsetForm);
+    window.form.toggle.disable(selectForm);
+    window.form.toggle.disable(fieldsetForm);
     window.util.delElements(document.querySelectorAll('.map__pin--ads'));
     removePinCard();
     mainPin.style.left = window.pins.X.START;
@@ -98,15 +111,7 @@
 
   // переходит в активный режим
   var onMainPinPress = function () {
-    map.classList.remove('map--faded');
-    adForm.classList.remove('ad-form--disabled');
-    window.form.trigger.enable(selectForm);
-    window.form.trigger.enable(fieldsetForm);
-    window.backend.load(onSuccessLoad, alert);
-    adForm.addEventListener('submit', sentFormListener);
-    mainPin.removeEventListener('mousedown', pinMouseListener);
-    mainPin.removeEventListener('keydown', pinKeyListener);
-    firstCheck();
+    window.backend.load(onSuccessLoad, onError);
   };
 
   var onMainPinUnpress = function () {
@@ -121,8 +126,8 @@
     window.util.isEvent.enter(evt, onMainPinPress);
   };
 
-  window.form.trigger.disable(selectForm);
-  window.form.trigger.disable(fieldsetForm);
+  window.form.toggle.disable(selectForm);
+  window.form.toggle.disable(fieldsetForm);
   firstCheck();
 
   onMainPinUnpress();

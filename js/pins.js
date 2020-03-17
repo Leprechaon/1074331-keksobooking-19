@@ -31,7 +31,6 @@
     offerPin.querySelector('img').src = offer.author.avatar;
     offerPin.querySelector('img').alt = offer.offer.title;
     offerPin.classList.add('map__pin--ads');
-    offerPin.tabindex = 0;
     return offerPin;
   };
 

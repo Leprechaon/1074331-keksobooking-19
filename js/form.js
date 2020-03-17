@@ -33,20 +33,20 @@
   };
 
   // Отключает все элементы переданного массива
-  var Trigger = {
+  var Toggle = {
     disable: function (inputs) {
-      for (var i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = true;
-      }
+      inputs.forEach(function (input) {
+        input.disabled = true;
+      });
       window.preview.deactivate();
       resetButton.removeEventListener('click', onResetButtonPress);
     },
 
     // Включает все элементы переданного массива
     enable: function (inputs) {
-      for (var i = 0; i < inputs.length; i++) {
-        inputs[i].disabled = false;
-      }
+      inputs.forEach(function (input) {
+        input.disabled = false;
+      });
       window.preview.activate();
       resetButton.addEventListener('click', onResetButtonPress);
     }
@@ -144,7 +144,7 @@
   features.addEventListener('keydown', featureFormKeyListener);
 
   window.form = {
-    trigger: Trigger,
+    toggle: Toggle,
     check: check,
     default: resetValue
   };

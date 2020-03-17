@@ -11,11 +11,11 @@
   var HIGH_PRICE = 50000;
   var dataFromServer = [];
 
-  var featureFilterKeyListener = function (evt) {
-    window.util.isEvent.enter(evt, onFeatureFilterKeydown, evt.target);
+  var onFeatureFilterKeydown = function (evt) {
+    window.util.isEvent.enter(evt, toggleFeatures, evt.target);
   };
 
-  var onFeatureFilterKeydown = function (feature) {
+  var toggleFeatures = function (feature) {
     switch (feature.checked) {
       case true:
         feature.checked = false;
@@ -23,7 +23,7 @@
       default:
         feature.checked = true;
     }
-    updatePins();
+    onFilterChange();
   };
 
   var Filtration = {
@@ -100,7 +100,7 @@
     }
   };
 
-  var updatePins = window.debounce(function () {
+  var onFilterChange = window.debounce(function () {
     window.map.removePinCard();
     var finalAds = Filtration.byPrice(Filtration.byType(Filtration.byRooms(Filtration.byGuests(Filtration.byFeatures(dataFromServer)))));
     window.map.renderFragment(window.util.doShuffles(finalAds), window.pins.render);
@@ -108,21 +108,21 @@
 
   var activate = function (ads) {
     dataFromServer = ads;
-    housingType.addEventListener('change', updatePins);
-    housingPrice.addEventListener('change', updatePins);
-    housingRooms.addEventListener('change', updatePins);
-    housingGuests.addEventListener('change', updatePins);
-    housingFeatures.addEventListener('change', updatePins);
-    housingFeatures.addEventListener('keydown', featureFilterKeyListener);
+    housingType.addEventListener('change', onFilterChange);
+    housingPrice.addEventListener('change', onFilterChange);
+    housingRooms.addEventListener('change', onFilterChange);
+    housingGuests.addEventListener('change', onFilterChange);
+    housingFeatures.addEventListener('change', onFilterChange);
+    housingFeatures.addEventListener('keydown', onFeatureFilterKeydown);
   };
 
   var deactivate = function () {
-    housingType.removeEventListener('change', updatePins);
-    housingPrice.removeEventListener('change', updatePins);
-    housingRooms.removeEventListener('change', updatePins);
-    housingGuests.removeEventListener('change', updatePins);
-    housingFeatures.removeEventListener('change', updatePins);
-    housingFeatures.removeEventListener('keydown', featureFilterKeyListener);
+    housingType.removeEventListener('change', onFilterChange);
+    housingPrice.removeEventListener('change', onFilterChange);
+    housingRooms.removeEventListener('change', onFilterChange);
+    housingGuests.removeEventListener('change', onFilterChange);
+    housingFeatures.removeEventListener('change', onFilterChange);
+    housingFeatures.removeEventListener('keydown', onFeatureFilterKeydown);
     mapFilters.reset();
   };
 

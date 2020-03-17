@@ -19,7 +19,7 @@
       if (xhr.status === Status.CODE_OK) {
         onLoad(xhr.response);
       } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Ошибка №' + xhr.status + ': ' + xhr.statusText);
       }
     });
 
@@ -28,7 +28,7 @@
     });
 
     xhr.addEventListener('timeout', function () {
-      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
 
     xhr.timeout = TIMEOUT;

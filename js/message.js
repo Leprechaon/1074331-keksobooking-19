@@ -6,6 +6,7 @@
   var successMessage = successTemplate.cloneNode(true);
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var errorMessage = errorTemplate.cloneNode(true);
+  var errorCustomMessage = errorTemplate.cloneNode(true);
 
   var removeListener = function () {
     if (errorMessage) {
@@ -14,8 +15,11 @@
     if (successMessage) {
       successMessage.remove();
     }
+    if (errorCustomMessage) {
+      errorCustomMessage.remove();
+    }
     document.removeEventListener('keydown', close);
-    document.removeEventListener('click', close);
+    document.removeEventListener('mousedown', close);
   };
 
   var open = function (status) {
@@ -27,8 +31,12 @@
         main.appendChild(errorMessage);
         errorMessage.querySelector('.error__button').addEventListener('click', removeListener);
         break;
+      default:
+        errorCustomMessage.querySelector('.error__message').textContent = status;
+        main.appendChild(errorCustomMessage);
+        errorCustomMessage.querySelector('.error__button').addEventListener('click', removeListener);
     }
-    document.addEventListener('click', close);
+    document.addEventListener('mousedown', close);
     document.addEventListener('keydown', close);
   };
 

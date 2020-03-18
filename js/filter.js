@@ -101,7 +101,7 @@
   };
 
   var onFilterChange = window.debounce(function () {
-    window.map.removePinCard();
+    window.map.onCardClose();
     var finalAds = Filtration.byPrice(Filtration.byType(Filtration.byRooms(Filtration.byGuests(Filtration.byFeatures(dataFromServer)))));
     window.map.renderFragment(window.util.doShuffles(finalAds), window.pins.render);
   });

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var FILE_TYPES = ['jpeg', 'png'];
+  var FILE_TYPES = ['jpeg', 'jpg', 'png', 'gif'];
   var DEFAULT_AVATAR = 'img/muffin-grey.svg';
   var avatarChooser = document.querySelector('#avatar');
   var avatarPreview = document.querySelector('.ad-form-header__preview img');

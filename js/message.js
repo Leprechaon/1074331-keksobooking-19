@@ -18,8 +18,8 @@
     if (errorCustomMessage) {
       errorCustomMessage.remove();
     }
-    document.removeEventListener('keydown', close);
-    document.removeEventListener('mousedown', close);
+    document.removeEventListener('keydown', onMessageClose);
+    document.removeEventListener('mousedown', onMessageClose);
   };
 
   var open = function (status) {
@@ -36,11 +36,11 @@
         main.appendChild(errorCustomMessage);
         errorCustomMessage.querySelector('.error__button').addEventListener('click', removeListener);
     }
-    document.addEventListener('mousedown', close);
-    document.addEventListener('keydown', close);
+    document.addEventListener('mousedown', onMessageClose);
+    document.addEventListener('keydown', onMessageClose);
   };
 
-  var close = function (evt) {
+  var onMessageClose = function (evt) {
     window.util.isEvent.esc(evt, removeListener);
     window.util.isEvent.mainMouseButton(evt, removeListener);
   };

@@ -11,27 +11,27 @@
   var mainPin = map.querySelector('.map__pin--main');
 
   // убирает карточку
-  var removePinCard = function (oldHandler) {
+  var onCardClose = function (oldHandler) {
     var oldPinCard = map.querySelector('.map__card');
     if (oldPinCard) {
       map.removeChild(oldPinCard);
       document.removeEventListener('keydown', oldHandler);
+      var active = map.querySelector('.map__pin--active');
+      if (active) {
+        active.classList.remove('map__pin--active');
+      }
     }
   };
 
   // добавляет карточку
   var onPinPress = function (template, pin) {
-    var active = map.querySelector('.map__pin--active');
-    if (active) {
-      active.classList.remove('map__pin--active');
-    }
-    removePinCard();
+    onCardClose();
     template.classList.add('map__pin--active');
     similarListPins.after(window.card.render(pin));
     var pinCard = map.querySelector('.popup__close');
-    pinCard.addEventListener('click', removePinCard);
+    pinCard.addEventListener('click', onCardClose);
     var oldHandler = document.addEventListener('keydown', function (evt) {
-      window.util.isEvent.esc(evt, removePinCard, oldHandler);
+      window.util.isEvent.esc(evt, onCardClose, oldHandler);
     });
   };
 
@@ -73,9 +73,9 @@
     window.form.toggle.enable(fieldsetForm);
     renderFragment(window.util.doShuffles(anyAds), window.pins.render);
     window.filter.activate(data);
-    adForm.addEventListener('submit', sentFormListener);
-    mainPin.removeEventListener('mousedown', pinMouseListener);
-    mainPin.removeEventListener('keydown', pinKeyListener);
+    adForm.addEventListener('submit', onFormSubmit);
+    mainPin.removeEventListener('mousedown', onPinMousedown);
+    mainPin.removeEventListener('keydown', onPinKeydown);
     firstCheck();
   };
 
@@ -94,17 +94,17 @@
     window.form.toggle.disable(selectForm);
     window.form.toggle.disable(fieldsetForm);
     window.util.delElements(document.querySelectorAll('.map__pin--ads'));
-    removePinCard();
+    onCardClose();
     mainPin.style.left = window.pins.X.START;
     mainPin.style.top = window.pins.Y.START;
     window.form.default();
     window.filter.deactivate();
-    mainPin.addEventListener('mousedown', pinMouseListener);
-    mainPin.addEventListener('keydown', pinKeyListener);
-    adForm.removeEventListener('submit', sentFormListener);
+    mainPin.addEventListener('mousedown', onPinMousedown);
+    mainPin.addEventListener('keydown', onPinKeydown);
+    adForm.removeEventListener('submit', onFormSubmit);
   };
 
-  var sentFormListener = function (evt) {
+  var onFormSubmit = function (evt) {
     window.backend.save(new FormData(adForm), onSuccessSave, onError);
     evt.preventDefault();
   };
@@ -118,11 +118,11 @@
     document.querySelector('#address').value = (delPX(mainPin.style.left) + window.pins.OFFSET.MAIN.X) + ', ' + (delPX(mainPin.style.top) + window.pins.OFFSET.MAIN.Y);
   };
 
-  var pinMouseListener = function (evt) {
+  var onPinMousedown = function (evt) {
     window.util.isEvent.mainMouseButton(evt, onMainPinPress);
   };
 
-  var pinKeyListener = function (evt) {
+  var onPinKeydown = function (evt) {
     window.util.isEvent.enter(evt, onMainPinPress);
   };
 
@@ -131,14 +131,14 @@
   firstCheck();
 
   onMainPinUnpress();
-  mainPin.addEventListener('mousedown', pinMouseListener);
-  mainPin.addEventListener('keydown', pinKeyListener);
+  mainPin.addEventListener('mousedown', onPinMousedown);
+  mainPin.addEventListener('keydown', onPinKeydown);
   mainPin.addEventListener('mousemove', onMainPinUnpress);
   window.dragAndDrop.moveElement(mainPin);
 
   window.map = {
     renderFragment: renderFragment,
-    removePinCard: removePinCard,
+    onCardClose: onCardClose,
     onMainPinUnpress: onMainPinUnpress,
     switchOffPage: switchOffPage
   };

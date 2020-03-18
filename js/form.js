@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var FLAT_MIN_PRICE = 1000;
+  var HOUSE_MIN_PRICE = 5000;
+  var PALACE_MIN_PRICE = 10000;
+  var BUNGALO_MIN_PRICE = 0;
+
   var adForm = document.querySelector('.ad-form');
   var title = adForm.querySelector('#title');
   var type = adForm.querySelector('#type');
@@ -12,16 +17,12 @@
   var description = adForm.querySelector('#description');
   var resetButton = adForm.querySelector('.ad-form__reset');
   var features = adForm.querySelector('.features');
-  var FLAT_MIN_PRICE = 1000;
-  var HOUSE_MIN_PRICE = 5000;
-  var PALACE_MIN_PRICE = 10000;
-  var BUNGALO_MIN_PRICE = 0;
 
-  var featureFormKeyListener = function (evt) {
-    window.util.isEvent.enter(evt, onFeatureFormKeydown, evt.target);
+  var onFormFeatureKeydown = function (evt) {
+    window.util.isEvent.enter(evt, toggleFormFeatures, evt.target);
   };
 
-  var onFeatureFormKeydown = function (feature, evt) {
+  var toggleFormFeatures = function (feature, evt) {
     evt.preventDefault();
     switch (feature.checked) {
       case true:
@@ -141,7 +142,7 @@
     check.syncInOut(timeOut.value);
   });
 
-  features.addEventListener('keydown', featureFormKeyListener);
+  features.addEventListener('keydown', onFormFeatureKeydown);
 
   window.form = {
     toggle: Toggle,

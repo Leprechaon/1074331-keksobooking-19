@@ -108,8 +108,8 @@
         rooms.setCustomValidity('');
         capacity.setCustomValidity('Это не для гостей');
       } else if ((capacityNumber === 0) & (roomNumber !== 100)) {
-        rooms.setCustomValidity('Вам требуется больше комнат!');
-        capacity.setCustomValidity('');
+        rooms.setCustomValidity('');
+        capacity.setCustomValidity('Вам требуется больше комнат!');
       } else {
         rooms.setCustomValidity('');
         capacity.setCustomValidity('');
